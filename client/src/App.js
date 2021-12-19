@@ -17,7 +17,7 @@ function App() {
             target='_blank'
             rel='noopener noreferrer'
           >
-            Fib App version 2
+            Fib App running on GCP kubernetes
           </a>
           <Link to='/'>Home</Link>
           <Link to='/otherpage'>Other Page</Link>
