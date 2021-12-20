@@ -1,0 +1,40 @@
+apiVersion: skaffold/v2beta12
+kind: config
+build:
+  local:
+    push: false
+  artifacts:
+    - image: 333456/multi-client
+      context: client
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+          - src: 'src/**/*.css'
+            dest: .
+          - src: 'src/**/*.html'
+            dest: .
+    - image: 333456/multi-server
+      context: server
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: 333456/multi-worker
+      context: worker
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+deploy:
+  kubectl:
+    manifests:
+      - k8s/client-deployment.yml
+      - k8s/server-deployment.yml
+      - k8s/worker-deployment.yml
